@@ -83,6 +83,11 @@ function pmpromd_shortcode($atts, $content=null, $code="")
 	else
 		$s = "";
 
+	// Set the default order value to be either ASC or DESC.
+	if ( $order !== 'DESC' ) {
+		$order = 'ASC';
+	}
+
 	if(isset($_REQUEST['pn']))
 		$pn = intval($_REQUEST['pn']);
 	else
@@ -107,7 +112,9 @@ $sql_parts['WHERE'] = "WHERE mu.status = 'active' AND (umh.meta_value IS NULL OR
 
 $sql_parts['GROUP'] = "GROUP BY u.ID ";
 
-$sql_parts['ORDER'] = "ORDER BY ". esc_sql($order_by) . " " . $order . " ";
+// Clean up order_by to only include text, underscores and periods.
+$order_by = preg_replace( '/[^a-z._]/', '', $order_by );
+$sql_parts['ORDER'] = "ORDER BY ". esc_sql( $order_by ) . " " . esc_sql( $order ) . " ";
 
 $sql_parts['LIMIT'] = "LIMIT $start, $limit";
 
@@ -136,6 +143,7 @@ if( $s ) {
 
 // If levels are passed in.
 if ( $levels ) {
+	$levels = preg_replace('/[^0-9,]/', '', $levels ); // Only allow commas and numeric values.
 	$sql_parts['WHERE'] .= "AND mu.membership_id IN(" . esc_sql($levels) . ") ";
 }
 
@@ -173,7 +181,7 @@ $sqlQuery = $sql_parts['SELECT'] . $sql_parts['JOIN'] . $sql_parts['WHERE'] . $s
 	</form>
 	<?php } ?>
 
-	<h3 id="pmpro_member_directory_subheading">
+	<h2 id="pmpro_member_directory_subheading">
 		<?php if(!empty($s)) { ?>
 			<?php /* translators: placeholder is for search string entered */ ?>
 			<?php printf(__('Profiles Within <em>%s</em>.','pmpro-member-directory'), stripslashes( ucwords(esc_html($s)))); ?>
@@ -191,7 +199,7 @@ $sqlQuery = $sql_parts['SELECT'] . $sql_parts['JOIN'] . $sql_parts['WHERE'] . $s
 				?>)
 			</small>
 		<?php } ?>
-	</h3>
+	</h2>
 	<?php
 	if(!empty($theusers))
 	{
@@ -330,13 +338,13 @@ $sqlQuery = $sql_parts['SELECT'] . $sql_parts['JOIN'] . $sql_parts['WHERE'] . $s
 								</td>
 							<?php } ?>
 							<td>
-								<h3 class="pmpro_member_directory_display-name">
+								<h2 class="pmpro_member_directory_display-name">
 									<?php if(!empty($link) && !empty($profile_url)) { ?>
 										<a href="<?php echo esc_url( pmpromd_build_profile_url( $auser, $profile_url ), $profile_url, true ); ?>"><?php echo esc_html( pmpro_member_directory_get_member_display_name( $auser ) ); ?></a>
 									<?php } else { ?>
 										<?php echo esc_html( pmpro_member_directory_get_member_display_name( $auser ) ); ?>
 									<?php } ?>
-								</h3>
+								</h2>
 							</td>
 							<?php if(!empty($show_email)) { ?>
 								<td class="pmpro_member_directory_email">
@@ -480,13 +488,13 @@ $sqlQuery = $sql_parts['SELECT'] . $sql_parts['JOIN'] . $sql_parts['WHERE'] . $s
 								<?php } ?>
 							</div>
 						<?php } ?>
-						<h3 class="pmpro_member_directory_display-name">
+						<h2 class="pmpro_member_directory_display-name">
 							<?php if(!empty($link) && !empty($profile_url)) { ?>
 								<a href="<?php echo esc_url( pmpromd_build_profile_url( $auser ), $profile_url ); ?>"><?php echo esc_html( pmpro_member_directory_get_member_display_name( $auser ) ); ?></a>
 							<?php } else { ?>
 								<?php echo esc_html( pmpro_member_directory_get_member_display_name( $auser ) ); ?></a>
 							<?php } ?>
-						</h3>
+						</h2>
 						<?php if(!empty($show_email)) { ?>
 							<p class="pmpro_member_directory_email">
 								<strong><?php _e('Email Address', 'pmpromd'); ?></strong>
