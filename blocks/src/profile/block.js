@@ -1,5 +1,5 @@
-import ShowExtraFields from "../components/extra-fields/extra-fields";
-import dummy_data from "../components/dummy-data/dummy-data";
+import ShowExtraFields from "components/extra-fields/extra-fields";
+import dummy_data from "components/dummy-data/dummy-data";
 
 const { __ } = wp.i18n;
 
@@ -49,7 +49,7 @@ export default registerBlockType(
             default: true
           },
           show_bio: {
-            type: 'string',
+            type: 'boolean',
             default: 'true'
           },
           show_email: {
