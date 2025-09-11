@@ -73,7 +73,7 @@ function pmpromd_shortcode( $atts, $content=null, $code="" ) {
 	// Set some values from the request or defaults.
 	$s = isset( $_REQUEST['ps'] ) ? sanitize_text_field( $_REQUEST['ps'] ) : ''; // Search string.
 	$pn = isset( $_REQUEST['pn'] ) ? intval( $_REQUEST['pn'] ) : 1; // Page number.
-	$limit = isset($_REQUEST['limit']) ? intval($_REQUEST['limit']) : (empty($limit) ? 15 : $limit);
+	$limit = isset($_REQUEST['limit']) ? intval($_REQUEST['limit']) : (empty($limit) ? 15 : intval( $limit ) );
 
 	$end = $pn * $limit;
 	$start = $end - $limit;
