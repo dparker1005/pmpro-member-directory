@@ -72,6 +72,12 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= TBD - YYYY-MM-DD =
+* ENHANCEMENT: Only show the map address fields if the "Hide From Directory" option is deselected. (@andrewlimaza)
+* BUG FIX: Fixed an issue where the $limit attribute may not be an integer in some cases and cause an error with limit calculations for the directory page. (@ideadude)
+* BUG FIX: Fixed issues where getting a member's avatar would fail if the username contained special characters. (@MaryOJob, @camilolunacom)
+* REFACTOR: Removed an unused filter `pmpromm_view_profile_text`. (@andrewlimaza)
+
 = 2.1.1 - 2025-08-19 =
 * BUG FIX: Resolved an issue where the profile page did not correctly support parent pages. (@andrewlimaza)
 
