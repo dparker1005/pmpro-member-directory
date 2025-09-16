@@ -3,7 +3,7 @@ Contributors: strangerstudios
 Tags: pmpro, paid memberships pro, members, directory
 Requires at least: 5.2
 Tested up to: 6.8
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 
 Add a robust Member Directory and Profiles to Your Membership Site - with attributes to customize the display.
 
@@ -72,7 +72,7 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
-= TBD - YYYY-MM-DD =
+= 2.1.2 - 2025-09-16 =
 * ENHANCEMENT: Only show the map address fields if the "Hide From Directory" option is deselected. (@andrewlimaza)
 * BUG FIX: Fixed an issue where the $limit attribute may not be an integer in some cases and cause an error with limit calculations for the directory page. (@ideadude)
 * BUG FIX: Fixed issues where getting a member's avatar would fail if the username contained special characters. (@MaryOJob, @camilolunacom)
