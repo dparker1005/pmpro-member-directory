@@ -33,6 +33,108 @@ function pmpromd_add_user_fields() {
 			)
 		)
 	);
+
+	if ( get_option( 'pmpro_pmpromd_maps_api_key' ) ) {
+		global $pmpro_default_country;
+		// Add map address fields and checkbox.
+		pmpro_add_user_field(
+			$field_group_name,
+			new PMPro_Field(
+				'pmpromd_map_optin',
+				'checkbox',
+				array(
+					'label' => esc_html__( 'Show location on map', 'pmpro-member-directory' ),
+					'profile' => true,
+					'required' => false
+				)
+			)
+		);
+
+		// Street address field. Note: We cannot support a street 2 address field (i.e. Apartment, Suite, etc.) because the Google Maps API does not support it.
+		pmpro_add_user_field(
+			$field_group_name,
+			new PMPro_Field(
+				'pmpromd_street_name',
+				'text',
+				array(
+					'label' => esc_html__( 'Street Name', 'pmpro-member-directory' ),
+					'profile' => true,
+					'required' => false,
+					'class' => 'pmpromd-map-address-field'
+				)
+			)
+		);
+
+		// City field.
+		pmpro_add_user_field(
+			$field_group_name,
+			new PMPro_Field(
+				'pmpromd_city',
+				'text',
+				array(
+					'label' => esc_html__( 'City', 'pmpro-member-directory' ),
+					'profile' => true,
+					'required' => false,
+					'class' => 'pmpromd-map-address-field'
+				)
+			)
+		);
+
+		// State
+		pmpro_add_user_field(
+			$field_group_name,
+			new PMPro_Field(
+				'pmpromd_state',
+				'text',
+				array(
+					'label' => esc_html__( 'State', 'pmpro-member-directory' ),
+					'profile' => true,
+					'required' => false,
+					'class' => 'pmpromd-map-address-field'
+				)
+			)
+		);
+
+		// Zip code
+		pmpro_add_user_field(
+			$field_group_name,
+			new PMPro_Field(
+				'pmpromd_zip',
+				'text',
+				array(
+					'label' => esc_html__( 'Zip Code', 'pmpro-member-directory' ),
+					'profile' => true,
+					'required' => false,
+					'class' => 'pmpromd-map-address-field'
+				)
+			)
+		);
+
+		// Get the list of countries from PMPro core.
+		if ( function_exists( 'pmpro_get_countries' ) ) {
+			$countries = pmpro_get_countries();
+		} else {
+			global $pmpro_countries;
+			$countries = $pmpro_countries;
+		}
+
+		// Generate this with the PMPro Country field.
+		pmpro_add_user_field(
+			$field_group_name,
+			new PMPro_Field(
+				'pmpromd_country',
+				'select',
+				array(
+					'label' => esc_html__( 'Country', 'pmpro-member-directory' ),
+					'profile' => true,
+					'required' => false,
+					'options' => $countries,
+					'class' => 'pmpromd-map-address-field',
+					'default' => $pmpro_default_country
+				)
+			)
+		);
+	}
 }
 add_action( 'init', 'pmpromd_add_user_fields' );
 
@@ -122,16 +224,23 @@ function pmpromd_custom_rewrite_rules() {
 		return;
 	}
 
-	$structure = get_option( 'permalink_structure' );
-	if ( empty( $structure ) ) {
-		return;
-	}
-
 	// Get the profile permalink.
 	$profile_permalink = get_permalink( $pmpro_pages['profile'] );
 
 	// Parse the path from the permalink, taking subfolder installations into account.
-	$profile_base = trim( parse_url( $profile_permalink, PHP_URL_PATH ), '/' );
+	$profile_page = get_post( $pmpro_pages['profile'] );
+	if ( ! is_object( $profile_page ) || empty( $profile_page->post_name ) ) {
+		return;
+	}
+	$profile_base = $profile_page->post_name;
+
+	// Add support for profile parent if it's configured.
+	if ( ! empty( $profile_page->post_parent ) ) {
+		$profile_parent = get_post( $profile_page->post_parent );
+		if ( is_object( $profile_parent ) && ! empty( $profile_parent->post_name ) ) {
+			$profile_base = $profile_parent->post_name . '/' . $profile_base;
+		}
+	}
 
 	// Add the rewrite rule.
 	add_rewrite_rule(
@@ -187,49 +296,58 @@ function pmpromd_redirect_profile_links() {
 add_action( 'wp', 'pmpromd_redirect_profile_links' );
 
 /**
- * Build profile URL
+ * Build a user-profile URL that respects the site's permalink structure.
+ *
+ * @param int|string|WP_User $pu           User object, user ID or nicename.
+ * @param string|null        $profile_url  Base profile page URL (optional).
+ * @param string|false       $separator    Unused param kept for backward compat.
+ *
+ * @return string The final profile URL or an empty string if user not found.
  */
-function pmpromd_build_profile_url( $pu, $profile_url = false, $separator = false ) { 
+function pmpromd_build_profile_url( $pu, $profile_url = null, $separator = false ) {
 	global $pmpro_pages;
 
-	if ( ! empty( $pmpro_pages['profile'] ) && ! $profile_url ) {
-		$profile_url = apply_filters( 'pmpromd_profile_url', get_permalink( $pmpro_pages['profile'] ) );
+	// If there's no profile URL and the profile page is set, use it.
+	if ( empty( $profile_url ) && ! empty( $pmpro_pages['profile'] ) ) {
+		$profile_url = apply_filters(
+			'pmpromd_profile_url',
+			get_permalink( $pmpro_pages['profile'] )
+		);
 	}
 
-	$structure = get_option( 'permalink_structure' );	
+	// Bail early if the profile page is missing.
+	if ( empty( $profile_url ) ) {
+		return '';
+	}
 
+	// Figure out the user identifier.
 	if ( is_object( $pu ) ) {
-		//We can't use 'slug' directly when getting the user nicename
-		$user_identifier = strtolower( pmpromd_user_identifier() );
-
-		if ( $user_identifier == 'id' ) {
-			$pu = $pu->ID;
-		} else {
-			$pu = $pu->user_nicename;
-		}
+		$user_identifier = strtolower( pmpromd_user_identifier() ); // id | slug
+		$pu              = ( 'id' === $user_identifier ) ? $pu->ID : $pu->user_nicename;
 	}
 
+	// No user, no URL.
 	if ( empty( $pu ) ) {
 		return '';
 	}
 
-	if ( empty( $structure ) ) {
-		//We're using plain permalinks here. Query parameters to the rescue!
-		return add_query_arg( array( 'pu' => $pu ), $profile_url );
+	// If there's no structure found let's do a query arg ?pu=nice_name
+	if ( ! get_option( 'permalink_structure' ) ) {
+		// Plain permalinks – use the query-string format.
+		return add_query_arg( 'pu', $pu, $profile_url );
 	}
 
-	if ( strpos( $structure, 'post_id' ) !== FALSE ) {
-		//Numeric permalinks don't have a trailing slash for some readon
-		$separator = true;
-	}
+	// Friendly permalinks – append the slug / ID as an extra path part.
+	$pu          = sanitize_title( $pu );
+	$profile_url = trailingslashit( $profile_url );
 
-	if ( $separator ) { 
-		return $profile_url . '/' . sanitize_title( $pu );
-	} else {
-		return $profile_url . sanitize_title( $pu );
-	}
+	/**
+	 * Respect "trailing slash" option for the final URL.
+	 * user_trailingslashit() adds or removes the slash in accordance
+	 * with Settings → Permalinks trailing slash preference.
+	 */
+	return user_trailingslashit( $profile_url . $pu );
 }
-
 /**
  * Update the_title for the Profile page.
  */
@@ -486,7 +604,7 @@ function pmpromd_get_display_value( $element, $pu, $displayed_levels = null ) {
 				$displayed_levels = explode( ',', $displayed_levels );
 				$all_levels_to_display = array_filter( $all_levels_to_display, fn( $level ) => in_array( $level->id, $displayed_levels ) );
 			}
-
+			
 			// Get the names of the levels to display.
 			$pu->membership_levels = implode( ', ', array_column( $all_levels_to_display, 'name' ) );
 
@@ -511,7 +629,7 @@ function pmpromd_get_display_value( $element, $pu, $displayed_levels = null ) {
 				$value = pmpro_member_directory_get_member_display_name( $pu );
 				break;
 			case 'avatar':
-				$value = get_avatar( $pu->ID, $avatar_size, NULL, $pu->display_name );
+				$value = get_avatar( $pu->ID, $avatar_size, NULL, esc_attr( $pu->display_name ) );
 				break;
 			case 'membership_name':
 				$value = $pu->membership_levels;
@@ -563,6 +681,7 @@ function pmpromd_get_display_value( $element, $pu, $displayed_levels = null ) {
 					'user_url',
 					'user_registered',
 					'display_name',
+					'ID',
 				);
 
 				if ( in_array( $element, $user_column_fields ) ) {

@@ -3,7 +3,7 @@
 Plugin Name: Paid Memberships Pro - Member Directory Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/member-directory/
 Description: Adds a customizable Member Directory and Member Profiles to your membership site.
-Version: 2.0.4
+Version: 2.1.2
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com/
 Text Domain: pmpro-member-directory
@@ -11,13 +11,10 @@ Domain Path: /languages
 */
 
 // Definitions
-define( 'PMPRO_MEMBER_DIRECTORY_VERSION', '2.0.4' );
+define( 'PMPRO_MEMBER_DIRECTORY_VERSION', '2.1.2' );
 define( 'PMPRO_MEMBER_DIRECTORY_BASE_FILE', __FILE__ );
 define( 'PMPRO_MEMBER_DIRECTORY_DIR', dirname( __FILE__ ) );
 define( 'PMPRO_MEMBER_DIRECTORY_BASENAME', plugin_basename( __FILE__ ) );
-
-/* TO DO: Is this needed? */
-global $pmpromd_options;
 
 // Load directory or profile templates from theme, then from plugin.
 $custom_dir = get_stylesheet_directory() . '/paid-memberships-pro/pmpro-member-directory/';
@@ -32,6 +29,7 @@ require_once( PMPRO_MEMBER_DIRECTORY_DIR . '/includes/admin.php' );
 require_once( PMPRO_MEMBER_DIRECTORY_DIR . '/includes/deprecated.php' );
 require_once( PMPRO_MEMBER_DIRECTORY_DIR . '/includes/functions.php' );
 require_once( PMPRO_MEMBER_DIRECTORY_DIR . '/includes/search.php' );
+require_once( PMPRO_MEMBER_DIRECTORY_DIR . '/includes/google-maps/membership-maps.php' );
 
 // Shortcodes
 require_once( PMPRO_MEMBER_DIRECTORY_DIR . '/shortcodes/search.php' );

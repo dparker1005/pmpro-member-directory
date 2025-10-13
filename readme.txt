@@ -3,7 +3,7 @@ Contributors: strangerstudios
 Tags: pmpro, paid memberships pro, members, directory
 Requires at least: 5.2
 Tested up to: 6.8
-Stable tag: 2.0.4
+Stable tag: 2.1.2
 
 Add a robust Member Directory and Profiles to Your Membership Site - with attributes to customize the display.
 
@@ -72,6 +72,23 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= 2.1.2 - 2025-09-16 =
+* ENHANCEMENT: Only show the map address fields if the "Hide From Directory" option is deselected. (@andrewlimaza)
+* BUG FIX: Fixed an issue where the $limit attribute may not be an integer in some cases and cause an error with limit calculations for the directory page. (@ideadude)
+* BUG FIX: Fixed issues where getting a member's avatar would fail if the username contained special characters. (@MaryOJob, @camilolunacom)
+* REFACTOR: Removed an unused filter `pmpromm_view_profile_text`. (@andrewlimaza)
+
+= 2.1.1 - 2025-08-19 =
+* BUG FIX: Resolved an issue where the profile page did not correctly support parent pages. (@andrewlimaza)
+
+= 2.1 - 2025-08-05 =
+* ENHANCEMENT: Added Google Maps functionality to the directory and profile pages. See our documentation for new actions and filters - most are borrowed from the Membership Maps Add On with `pmpromd_` prefix instead of `pmpromm_` (@andrewlimaza)
+* ENHANCEMENT: Adjusted the default generated shortcodes for both the directory and profile pages to include the `elements` attribute with a default set of elements. (@kimcoleman)
+* ENHANCEMENT: Added a new filter `pmpro_member_profile_before_atts` to allow customization of the attributes for the profile shortcode. This follows the existing directory filter logic that is available. (@ipokkel)
+* ENHANCEMENT: Allow displaying "ID" as an element in the directory and profile pages shortcode. (@dparker1005)
+* BUG FIX: Fixed an issue where the profile generated URL would not work correctly on a subfolder WordPress install or when not using pretty permalinks. (@andrewlimaza)
+* BUG FIX: Fixed an issue for the profile generated URL when permalinks were set without a trailing slash. (@andrewlimaza)
+
 = 2.0.4 - 2025-04-24 =
 * BUG FIX/ENHANCEMENT: Added improved compatibility for The Events Calendar plugin, and possibly other plugins that may use `?pu=` in their URLs. #191 (@JarrydLong)
 * BUG FIX: Fixed an issue with the Member Profile block not honoring the "Show Bio" setting. #192 (@dwanjuki)
