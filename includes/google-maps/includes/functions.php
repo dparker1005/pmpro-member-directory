@@ -373,7 +373,7 @@ function pmpromd_save_marker_location_for_user( $user_id = false ) {
         } else {
 			// The $coordinates is not an array, most likely an error message set in the pmpromd_geocode_map_address function.
 			global $pmpro_msg, $pmpro_msgt;
-			$pmpro_msg = sprintf( esc_html__( 'There was an error with the Google Maps API: %s', 'pmpro-member-directory' ), $coordinates );
+			$pmpro_msg = sprintf( esc_html__( 'There was an error with the Google Maps API: %s', 'pmpro-member-directory' ), esc_html( $coordinates ) );
 			$pmpro_msgt = 'pmpro_error';
 		}
 
@@ -474,7 +474,7 @@ function pmpromd_geocode_map_address( $addr_array, $morder = false, $return_body
 			}
 
 		} else {
-			$geocoded_data = isset( $request_body->error_message ) ? $request_body->error_message : false;
+			$geocoded_data = isset( $request_body->error_message ) ? sanitize_text_field( $request_body->error_message ) : false;
 		}
 
 	}
