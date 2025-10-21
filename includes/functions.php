@@ -559,7 +559,7 @@ function pmpromd_prepare_elements_array( $elements ) {
  */
 function pmpromd_get_display_value( $element, $pu, $displayed_levels = null ) {
 
-	// No user object, return an emptry result instead.
+	// No user object, return an empty result instead.
 	if ( empty( $pu ) || ! is_object( $pu ) ) {
 		return '';
 	}
