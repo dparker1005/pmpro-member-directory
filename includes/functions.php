@@ -558,6 +558,12 @@ function pmpromd_prepare_elements_array( $elements ) {
  * Get the value of a specific element from a string of HTML.
  */
 function pmpromd_get_display_value( $element, $pu, $displayed_levels = null ) {
+
+	// No user object, return an emptry result instead.
+	if ( empty( $pu ) || ! is_object( $pu ) ) {
+		return '';
+	}
+
 	// Initialize the value.
 	$value = '';
 
