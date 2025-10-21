@@ -560,7 +560,7 @@ function pmpromd_prepare_elements_array( $elements ) {
 function pmpromd_get_display_value( $element, $pu, $displayed_levels = null ) {
 
 	// No user object, return an empty result instead.
-	if ( empty( $pu ) || ! is_object( $pu ) ) {
+	if ( ! ( $pu instanceof WP_User ) ) {
 		return '';
 	}
 
