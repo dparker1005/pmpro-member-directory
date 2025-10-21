@@ -47,7 +47,7 @@ function pmpromd_profile_shortcode( $atts, $content=null, $code="" ) {
 	$pu = pmpromd_get_user( $user_id );
 
 	// If we're unable to get a user, show a message (to admins).
-	if ( empty( $pu ) || ! is_object( $pu ) ) {
+	if ( ! ( $pu instanceof WP_User ) ) {
 		$member_not_found = esc_html__( 'Unable to retrieve member profile.', 'pmpro-member-directory' );
 		if ( $directory_url ) {
 			$member_not_found .= ' <a href="' . esc_url( $directory_url ) . '">' . esc_html__( 'Go back to Directory', 'pmpro-member-directory' ) . '</a>';
