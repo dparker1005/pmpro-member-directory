@@ -173,7 +173,7 @@ function pmpromd_show_google_map( $attributes, $members ) {
 	if ( $enable_marker_clustering ) {
 		$pmpromd_map_attributes['plugin_url'] = plugin_dir_url( dirname( __FILE__ ) );
 		$pmpromd_map_attributes['show_cluster'] = true;
-		wp_enqueue_script( 'pmpromd-google-maps-cluster', plugin_dir_url( dirname( __FILE__ ) ) . 'js/marker-cluster.min.js', array( 'pmpromd-google-maps' ), PMPRO_MEMBER_DIRECTORY_VERSION, array( 'strategy'  => 'async' ) );
+		wp_enqueue_script( 'pmpromd-google-maps-cluster', plugin_dir_url( dirname( __FILE__ ) ) . 'js/marker-cluster.min.js', array( 'pmpromd-google-maps' ), PMPRO_MEMBER_DIRECTORY_VERSION );
 	} else {
 		$pmpromd_map_attributes['show_cluster'] = false;
 	}
