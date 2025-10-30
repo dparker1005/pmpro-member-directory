@@ -81,7 +81,7 @@ function pmpromd_init_map(){
 		}
 
 		// Only show clusters if PHP filter is enabled. 
-		if ( pmpromd_vars.show_cluster === "1" || pmpromd_vars.show_cluster === 1 ) {
+		if ( pmpromd_vars.show_cluster === true || pmpromd_vars.show_cluster === "1" || pmpromd_vars.show_cluster === 1 ) {
 			var markerClusterOptions = {
 				imagePath: pmpromd_vars.plugin_url + 'images/m',
 				gridSize: 50,
