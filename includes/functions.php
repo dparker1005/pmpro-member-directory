@@ -713,6 +713,9 @@ function pmpromd_get_display_value( $element, $pu, $displayed_levels = null ) {
 
 		// Format the date fields.
 		if ( in_array( $element, $date_fields ) && ! empty( $value ) ) {
+			if ( ! is_numeric( $value ) ) {
+				$value = strtotime( $value );
+			}
 			$value = date_i18n( get_option('date_format'), $value );
 		}
 
