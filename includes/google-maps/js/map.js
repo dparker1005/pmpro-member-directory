@@ -36,6 +36,9 @@ function pmpromd_init_map(){
 	}
 
 	var pmpromd_infowindows = new Array();
+	
+	// Array to store all markers for clustering
+	var pmpromd_markers = new Array();
 
 	//Making sure we actually have pmpromd_markers
 	if( typeof pmpromd_vars.marker_data !== 'undefined' ){
@@ -58,7 +61,6 @@ function pmpromd_init_map(){
 
 			var pmpromd_marker = new google.maps.Marker({
 				position: pmpromd_latlng,
-				map: pmpro_map,
 				content: pmpromd_contentString,
 				pmpromd_infowindow: pmpromd_infowindow
 			});
@@ -74,9 +76,26 @@ function pmpromd_init_map(){
 			    };
 			})(pmpromd_marker,pmpromd_contentString,pmpromd_infowindow));  
 
-			
+			// Add marker to the array instead of directly to the map
+			pmpromd_markers.push(pmpromd_marker);
 		}
 
+		// Only show clusters if PHP filter is enabled. 
+		if ( pmpromd_vars.show_cluster === "1" || pmpromd_vars.show_cluster === 1 ) {
+			var markerClusterOptions = {
+				imagePath: pmpromd_vars.plugin_url + 'images/m',
+				gridSize: 50,
+				maxZoom: 10,
+				minimumClusterSize: 2
+			};
+			
+			new MarkerClusterer(pmpro_map, pmpromd_markers, markerClusterOptions);
+		} else {
+			// Place all markers on the map (fallback if clustering is disabled).
+			for (var i = 0; i < pmpromd_markers.length; i++) {
+				pmpromd_markers[i].setMap(pmpro_map);
+			}
+		}
 	}
 
 };
