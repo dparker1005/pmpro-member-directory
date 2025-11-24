@@ -27,13 +27,13 @@ function pmpromd_show_google_map( $attributes, $members ) {
 
 	// Only show the map if the 'show_map' attribute is set to true.
 	if ( $attributes['show_map'] === false ) {
-		return;
+		return '';
 	}
 
 	// Make sure we have the Maps API key, including the deprecated one.
 	$maps_api_key = get_option( 'pmpro_pmpromd_maps_api_key' ) ?? get_option( 'pmpro_pmpromm_maps_api_key' );
 	if ( empty( $maps_api_key ) ) {
-		return;
+		return '';
 	}
 
 	// Extract the array $attributes so we can use them directly without doing $attributes['key'] all the time.
