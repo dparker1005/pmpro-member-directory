@@ -164,10 +164,12 @@ export default registerBlockType(
            if ( !levels.length ) {
             return null;
            }
-            return [
-            <span className="pmpro-member-profile-levels" style={{ fontSize: '12px' }}>{ __( 'Levels Selected: ',  'pmpro-member-directory' ) + levels }</span>,
-            <br/>
-            ]
+            return (
+             <>
+              <span className="pmpro-member-profile-levels" style={{ fontSize: '12px' }}>{ __( 'Levels Selected: ',  'pmpro-member-directory' ) + levels }</span>
+              <br/>
+             </>
+            )
           }
 
           return [
