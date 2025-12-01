@@ -20,7 +20,7 @@ const {
 
 const {
   InspectorControls,
-} = wp.editor;
+} = wp.blockEditor;
 
 const all_levels = pmpro.all_level_values_and_labels;
 
