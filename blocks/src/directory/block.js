@@ -121,46 +121,43 @@ export default registerBlockType(
                 className, isSelected, setAttributes } = props;
 
           function show_layout_selected() {
-            const layout_return = [];
             if ( layout == 'div' ) {
-              layout_return.push(
+              return (
                 <DivLayout 
                     attributes={props.attributes}             
                   />
               );
             } else if( layout == 'table' ) {
-              layout_return.push(
+              return (
                 <TableLayout
                   attributes={props.attributes}
                 />
               );
             } else if( layout == '2col' ) {
-              layout_return.push( 
+              return ( 
                 <Col2
                   attributes={props.attributes}
                 /> 
                 );
             } else if( layout == '3col' ) {
-              layout_return.push( 
+              return ( 
                 <Col3
                   attributes={props.attributes}
                 /> 
                 );
             } else if( layout == '4col' ) {
-              layout_return.push(
+              return (
                 <Col4
                   attributes={props.attributes}
                 />
               );
             } else {
-              layout_return.push(
+              return (
                 <DivLayout 
                     attributes={props.attributes}             
                   />
               )
             }
-
-            return layout_return;
           }
 
           function show_levels_selected() {
