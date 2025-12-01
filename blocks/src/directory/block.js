@@ -51,7 +51,7 @@ export default registerBlockType(
           },
           levels: {
             type: 'array',
-            default: ''
+            default: []
           },
           show_avatar: {
             type: 'boolean',
