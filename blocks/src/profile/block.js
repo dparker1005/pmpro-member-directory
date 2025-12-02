@@ -120,68 +120,81 @@ export default registerBlockType(
               >
 
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label='Show Search'
                   checked={ show_search }
                   onChange={ show_search => { setAttributes( { show_search } ) } }
                 />
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label="Show Avatar"
                   checked={ show_avatar }
                   onChange={ show_avatar => { setAttributes( { show_avatar } ) } }
                 />
              
-                <TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label="Avatar Size"
                   value={ avatar_size }
                   className={ !show_avatar ? "hidden" : "" }
                   onChange={ avatar_size => { setAttributes( { avatar_size } ) } }
                 />
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label='Show Bio'
                   checked={ show_bio }
                   onChange={ show_bio => { setAttributes( { show_bio } ) } }
                 />
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label='Show Level'
                   checked={ show_level }
                   onChange={ show_level => { setAttributes( { show_level } ) } }
                 />
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label='Show Email Address'
                   checked={ show_email }
                   onChange={ show_email => { setAttributes( { show_email } ) } }
                 />
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label='Show Name'
                   checked={ show_name }
                   onChange={ show_name => { setAttributes( { show_name } ) } }
                 />
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label='Show Start Date'
                   checked={ show_startdate }
                   onChange={ show_startdate => { setAttributes( { show_startdate } ) } }
                 />
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label='Show Billing (deprecated)'
                   checked={ show_billing }
                   onChange={ show_billing => { setAttributes( { show_billing } ) } }
                 />
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label='Show Phone (deprecated)'
                   checked={ show_phone }
                   onChange={ show_phone => { setAttributes( { show_phone } ) } }
                 />
 
-                <TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label="User ID"
                   value={ user_id }
                   onChange={ user_id => { setAttributes( { user_id } ) } }
@@ -192,40 +205,51 @@ export default registerBlockType(
 
 			   <PanelBody title={ __( 'Map Options', 'pmpro-member-directory' ) } >
 				<CheckboxControl
+				  __nextHasNoMarginBottom
 				  label={ __( 'Show Map', 'pmpro-member-directory' ) }
 				  checked={ show_map }
 				  onChange={ show_map => { setAttributes( { show_map } ) } }
 				/>
 
-				<TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label={ __( 'Map Zoom', 'pmpro-member-directory' ) }
                   value={ map_zoom }
                   className={ !show_map ? "hidden" : "" }
                   onChange={ map_zoom => { setAttributes( { map_zoom } ) } }
                 />
 
-				<TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label={ __( 'Map Height', 'pmpro-member-directory' ) }
                   value={ map_height }
                   className={ !show_map ? "hidden" : "" }
                   onChange={ map_height => { setAttributes( { map_height } ) } }
                 />
 
-				<TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label={ __( 'Map Width', 'pmpro-member-directory' ) }
                   value={ map_width }
                   className={ !show_map ? "hidden" : "" }
                   onChange={ map_width => { setAttributes( { map_width } ) } }
                 />
 
-				<TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label={ __( 'Max Zoom Level', 'pmpro-member-directory' ) }
                   value={ map_max_zoom }
                   className={ !show_map ? "hidden" : "" }
                   onChange={ map_max_zoom => { setAttributes( { map_max_zoom } ) } }
                 />
 
-				<TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label={ __( 'Infowindow Width', 'pmpro-member-directory' ) }
                   value={ map_infowindow_width }
                   className={ !show_map ? "hidden" : "" }
@@ -236,7 +260,8 @@ export default registerBlockType(
               <PanelBody
                 title={ __('Extra Fields', 'pmpro-member-directory' ) }
               >
-                <TextareaControl 
+                <TextareaControl
+                  __nextHasNoMarginBottom 
                   label="Fields"
                   value={ fields }
                   onChange={ fields => { setAttributes( { fields } ) } }
