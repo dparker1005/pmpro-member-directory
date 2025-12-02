@@ -50,7 +50,7 @@ export default registerBlockType(
           },
           show_bio: {
             type: 'boolean',
-            default: 'true'
+            default: true
           },
           show_email: {
             type: 'boolean',
