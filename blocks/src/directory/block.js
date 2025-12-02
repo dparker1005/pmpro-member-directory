@@ -101,7 +101,8 @@ export default registerBlockType(
             type: 'string',
           },
           limit: {
-            type: 'string'
+            type: 'string',
+            default: '15'
           },
           link: {
             type: 'boolean',
