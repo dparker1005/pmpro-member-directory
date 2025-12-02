@@ -114,7 +114,7 @@ export default registerBlockType(
           className, isSelected, setAttributes } = props;
 
           return [
-            isSelected && <InspectorControls>
+            isSelected && <InspectorControls key="controls">
               <PanelBody
                 title={ __( 'Display Settings', 'pmpro-member-directory' ) }
               >
@@ -269,7 +269,7 @@ export default registerBlockType(
                 />
               </PanelBody>
               </InspectorControls>,
-              <div className={ className } style={{ fontFamily: 'arial', fontSize: '14px' } }>
+              <div key="preview" className={ className } style={{ fontFamily: 'arial', fontSize: '14px' } }>
 				<div className={ !show_map ? "hidden" : "" }>
                   <img src={ require('../components/icons/google-maps-placeholder.png') } alt="Map Placeholder" />
                 </div>
