@@ -17,7 +17,7 @@ const {
 
 const {
   InspectorControls,
-} = wp.editor;
+} = wp.blockEditor;
 
 export default registerBlockType(
     'pmpro-member-directory/profile',
