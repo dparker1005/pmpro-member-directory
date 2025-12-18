@@ -46,6 +46,18 @@ function pmpromd_profile_shortcode( $atts, $content=null, $code="" ) {
 	// Get the user for this profile.
 	$pu = pmpromd_get_user( $user_id );
 
+	// If we're unable to get a user, show a message.
+	// Note: this will only ever reach here if the shortcode is on a page that isn't the assigned profile page.
+	if ( ! ( $pu instanceof WP_User ) ) {
+		$member_not_found = esc_html__( 'Unable to retrieve member profile.', 'pmpro-member-directory' );
+		if ( $directory_url ) {
+			$member_not_found .= ' <a href="' . esc_url( $directory_url ) . '">' . esc_html__( 'Go back to Directory', 'pmpro-member-directory' ) . '</a>';
+		} else {
+			$member_not_found .= ' ' . esc_html__( 'Please contact the site administrator for assistance.', 'pmpro-member-directory' );
+		}
+		return $member_not_found;
+	}
+
 	// Did they use level instead of levels?
 	if ( empty( $levels ) && ! empty( $level ) ) {
 		$levels = $level;
