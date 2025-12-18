@@ -194,8 +194,6 @@ function pmpromd_profile_shortcode( $atts, $content=null, $code="" ) {
 				echo wp_kses_post( pmpromd_show_google_map( $shortcode_atts, $pu ) );
 			?>
 
-		
-
 			<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
 				<?php
 					foreach ( $elements_array as $element ) {
