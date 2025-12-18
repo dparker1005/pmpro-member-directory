@@ -2,8 +2,8 @@
 Contributors: strangerstudios
 Tags: pmpro, paid memberships pro, members, directory
 Requires at least: 5.2
-Tested up to: 6.8
-Stable tag: 2.1.2
+Tested up to: 6.9
+Stable tag: 2.1.3
 
 Add a robust Member Directory and Profiles to Your Membership Site - with attributes to customize the display.
 
@@ -72,6 +72,14 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= 2.1.3 - 2025-12-18 =
+* ENHANCEMENT: Now showing an error message after saving a Google Maps API key if the key is invalid. #213 (@JarrydLong)
+* ENHANCEMENT: Now showing an error message when geocoding an address fails on the Edit Member page. #214 (@andrewlimaza)
+* BUG FIX: Fixed an issue where some dates may incorrectly show as the current date in the directory and profile pages. #217 (@andrewlimaza)
+* BUG FIX: Fixed the default country that is shown when editing map address fields. #223 (@dparker1005)
+* BUG FIX: Fixed a warning that could occur when trying to access properties for a user that does not exist. #215 (@andrewlimaza)
+* BUG FIX: Fixed a warning that could occur when the member map is not being shown on the directory or profile page. #220 (@kimcoleman)
+
 = 2.1.2 - 2025-09-16 =
 * ENHANCEMENT: Only show the map address fields if the "Hide From Directory" option is deselected. (@andrewlimaza)
 * BUG FIX: Fixed an issue where the $limit attribute may not be an integer in some cases and cause an error with limit calculations for the directory page. (@ideadude)
