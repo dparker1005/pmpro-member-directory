@@ -113,9 +113,11 @@ function pmpromd_add_user_fields() {
 		// Get the list of countries from PMPro core.
 		if ( function_exists( 'pmpro_get_countries' ) ) {
 			$countries = pmpro_get_countries();
+			$default_country = pmpro_get_default_country();
 		} else {
-			global $pmpro_countries;
+			global $pmpro_countries, $pmpro_default_country;
 			$countries = $pmpro_countries;
+			$default_country = $pmpro_default_country;
 		}
 
 		// Generate this with the PMPro Country field.
@@ -130,7 +132,7 @@ function pmpromd_add_user_fields() {
 					'required' => false,
 					'options' => $countries,
 					'class' => 'pmpromd-map-address-field',
-					'default' => $pmpro_default_country
+					'value' => $default_country
 				)
 			)
 		);
