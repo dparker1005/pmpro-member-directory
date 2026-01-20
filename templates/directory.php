@@ -82,7 +82,7 @@ function pmpromd_shortcode( $atts, $content=null, $code="" ) {
 	$sql_parts = array();
 
 	$sql_parts['SELECT'] = "
-	SELECT SQL_CALC_FOUND_ROWS 
+	SELECT 
 		u.ID,
 		u.user_nicename,
 		umf.meta_value AS first_name, 
@@ -154,7 +154,23 @@ $sqlQuery = $sql_parts['SELECT'] . $sql_parts['JOIN'] . $sql_parts['WHERE'] . $s
 $sqlQuery = apply_filters( 'pmpro_member_directory_sql', $sqlQuery, $levels, $s, $pn, $limit, $start, $end, $order_by, $order );
 
 	$theusers = $wpdb->get_results($sqlQuery);
-	$totalrows = $wpdb->get_var("SELECT FOUND_ROWS() as found_rows");
+
+	// Build the count query.
+	// Replace SELECT list with COUNT(DISTINCT u.ID).
+	$count_sql = preg_replace(
+		'/^\s*SELECT\s+[\s\S]*?\s+FROM\s+/i',
+		'SELECT COUNT( DISTINCT u.ID ) FROM ',
+		$sqlQuery,
+		1
+	);
+
+	// Remove everything from GROUP BY onward (GROUP, ORDER, LIMIT, etc.).
+	$count_sql = preg_replace(
+		'/\s+GROUP\s+BY\s+[\s\S]*$/i',
+		'',
+		$count_sql
+	);
+	$totalrows = (int) $wpdb->get_var( $count_sql );
 
 	// Update end to match totalrows if total rows is small.
 	if ( $totalrows < $end )
