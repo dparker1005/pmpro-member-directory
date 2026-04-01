@@ -27,13 +27,13 @@ function pmpromd_show_google_map( $attributes, $members ) {
 
 	// Only show the map if the 'show_map' attribute is set to true.
 	if ( $attributes['show_map'] === false ) {
-		return;
+		return '';
 	}
 
 	// Make sure we have the Maps API key, including the deprecated one.
 	$maps_api_key = get_option( 'pmpro_pmpromd_maps_api_key' ) ?? get_option( 'pmpro_pmpromm_maps_api_key' );
 	if ( empty( $maps_api_key ) ) {
-		return;
+		return '';
 	}
 
 	// Extract the array $attributes so we can use them directly without doing $attributes['key'] all the time.
@@ -369,8 +369,13 @@ function pmpromd_save_marker_location_for_user( $user_id = false ) {
             } else {
                 //Cleanup pin location
 				delete_user_meta( $user_id, 'pmpromd_pin_location' );
-            }
-        }
+			}
+        } else {
+			// The $coordinates is not an array, most likely an error message set in the pmpromd_geocode_map_address function.
+			global $pmpro_msg, $pmpro_msgt;
+			$pmpro_msg = sprintf( esc_html__( 'There was an error with the Google Maps API: %s', 'pmpro-member-directory' ), esc_html( $coordinates ) );
+			$pmpro_msgt = 'pmpro_error';
+		}
 
     } else {
         //Cleanup pin location
@@ -427,6 +432,9 @@ function pmpromd_get_member_address( $user_id = false ) {
  */
 function pmpromd_geocode_map_address( $addr_array, $morder = false, $return_body = false ) {
 
+	// Remove the optin value from the address array as we don't need to send it to Google.
+	unset( $addr_array['optin'] );
+
 	// Turn the address array into a string for geocoding.
 	$address_string = implode( ", ", array_filter( $addr_array ) );
 
@@ -466,8 +474,7 @@ function pmpromd_geocode_map_address( $addr_array, $morder = false, $return_body
 			}
 
 		} else {
-			// pmpromm_report_geocode_api_error( $request_body );
-			$geocoded_data = false;
+			$geocoded_data = isset( $request_body->error_message ) ? sanitize_text_field( $request_body->error_message ) : false;
 		}
 
 	}

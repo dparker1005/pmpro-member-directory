@@ -113,9 +113,11 @@ function pmpromd_add_user_fields() {
 		// Get the list of countries from PMPro core.
 		if ( function_exists( 'pmpro_get_countries' ) ) {
 			$countries = pmpro_get_countries();
+			$default_country = pmpro_get_default_country();
 		} else {
-			global $pmpro_countries;
+			global $pmpro_countries, $pmpro_default_country;
 			$countries = $pmpro_countries;
+			$default_country = $pmpro_default_country;
 		}
 
 		// Generate this with the PMPro Country field.
@@ -130,7 +132,7 @@ function pmpromd_add_user_fields() {
 					'required' => false,
 					'options' => $countries,
 					'class' => 'pmpromd-map-address-field',
-					'default' => $pmpro_default_country
+					'value' => $default_country
 				)
 			)
 		);
@@ -558,6 +560,12 @@ function pmpromd_prepare_elements_array( $elements ) {
  * Get the value of a specific element from a string of HTML.
  */
 function pmpromd_get_display_value( $element, $pu, $displayed_levels = null ) {
+
+	// No user object, return an empty result instead.
+	if ( ! ( $pu instanceof WP_User ) ) {
+		return '';
+	}
+
 	// Initialize the value.
 	$value = '';
 
@@ -713,6 +721,9 @@ function pmpromd_get_display_value( $element, $pu, $displayed_levels = null ) {
 
 		// Format the date fields.
 		if ( in_array( $element, $date_fields ) && ! empty( $value ) ) {
+			if ( ! is_numeric( $value ) ) {
+				$value = strtotime( $value );
+			}
 			$value = date_i18n( get_option('date_format'), $value );
 		}
 
