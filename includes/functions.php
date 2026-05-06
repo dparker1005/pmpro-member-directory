@@ -620,6 +620,14 @@ function pmpromd_get_display_value( $element, $pu, $displayed_levels = null ) {
 			$start_dates = array_column( $all_levels_to_display, 'startdate' );
 			$end_dates = array_column( $all_levels_to_display, 'enddate' );
 
+			// Only use real start and end dates (ignore null/empty values).
+			$start_dates = array_filter( $start_dates, function( $startdate ) {
+				return ! empty( $startdate );
+			} );
+			$end_dates = array_filter( $end_dates, function( $enddate ) {
+				return ! empty( $enddate );
+			} );
+
 			$startdate = ! empty( $start_dates ) ? min( $start_dates ) : null;
 			$enddate = ! empty( $end_dates ) ? min( $end_dates ) : null;
 		}
