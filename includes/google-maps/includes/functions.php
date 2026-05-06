@@ -122,7 +122,7 @@ function pmpromd_show_google_map( $attributes, $members ) {
 	$query_params = array_map( 'sanitize_text_field', $query_params );
 
 	wp_enqueue_script( 'pmpromd-google-maps', add_query_arg( $query_params, 'https://maps.googleapis.com/maps/api/js' ), array(), PMPRO_MEMBER_DIRECTORY_VERSION, array( 'strategy'  => 'async' ) );
-	wp_register_script( 'pmpromd-google-maps-javascript', plugin_dir_url( dirname( __FILE__ ) ) . 'js/map.js', array( 'jquery' ), PMPRO_MEMBER_DIRECTORY_VERSION ); // This changes to `map.js`
+	wp_register_script( 'pmpromd-google-maps-javascript', plugin_dir_url( dirname( __FILE__ ) ) . 'js/map.js', array( 'jquery', 'pmpromd-google-maps' ), PMPRO_MEMBER_DIRECTORY_VERSION ); // This changes to `map.js`
 		
 	/**
 	 * @deprecated 2.1 - use `pmpromd_default_map_start` instead.
@@ -161,6 +161,22 @@ function pmpromd_show_google_map( $attributes, $members ) {
 		'infowindow_classes' => pmpro_get_element_class( 'pmpromd_infowindow' ),
 		'map_styles' => $map_styles		
 	);
+
+	/**
+	 * Allow marker clustering to be enabled which clusters 2 or more markers together at specific zoom levels.
+	 * 
+	 * @since TBD
+	 * 
+	 * @param bool $show_cluster Whether to show marker clustering on the map. Defaults to true.
+	 */
+	$enable_marker_clustering = apply_filters( 'pmpromd_map_cluster_markers', true );
+	if ( $enable_marker_clustering ) {
+		$pmpromd_map_attributes['plugin_url'] = plugin_dir_url( dirname( __FILE__ ) );
+		$pmpromd_map_attributes['show_cluster'] = true;
+		wp_enqueue_script( 'pmpromd-google-maps-cluster', plugin_dir_url( dirname( __FILE__ ) ) . 'js/marker-cluster.min.js', array( 'pmpromd-google-maps' ), PMPRO_MEMBER_DIRECTORY_VERSION );
+	} else {
+		$pmpromd_map_attributes['show_cluster'] = false;
+	}
 
 	wp_localize_script( 'pmpromd-google-maps-javascript', 'pmpromd_vars', $pmpromd_map_attributes );
 	wp_enqueue_script( 'pmpromd-google-maps-javascript' );
