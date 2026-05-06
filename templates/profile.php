@@ -78,6 +78,7 @@ function pmpromd_profile_shortcode( $atts, $content=null, $code="" ) {
 	$show_phone = filter_var( $show_phone, FILTER_VALIDATE_BOOLEAN );
 	$show_search = filter_var( $show_search, FILTER_VALIDATE_BOOLEAN );
 	$show_startdate = filter_var( $show_startdate, FILTER_VALIDATE_BOOLEAN );
+	$show_map = filter_var( $show_map, FILTER_VALIDATE_BOOLEAN );
 
 	// Validate the avatar size.
 	$avatar_size = intval( $avatar_size );
