@@ -20,7 +20,7 @@ const {
 
 const {
   InspectorControls,
-} = wp.editor;
+} = wp.blockEditor;
 
 const all_levels = pmpro.all_level_values_and_labels;
 
@@ -51,7 +51,7 @@ export default registerBlockType(
           },
           levels: {
             type: 'array',
-            default: ''
+            default: []
           },
           show_avatar: {
             type: 'boolean',
@@ -101,7 +101,8 @@ export default registerBlockType(
             type: 'string',
           },
           limit: {
-            type: 'string'
+            type: 'string',
+            default: '15'
           },
           link: {
             type: 'boolean',
@@ -121,65 +122,66 @@ export default registerBlockType(
                 className, isSelected, setAttributes } = props;
 
           function show_layout_selected() {
-            const layout_return = [];
             if ( layout == 'div' ) {
-              layout_return.push(
+              return (
                 <DivLayout 
                     attributes={props.attributes}             
                   />
               );
             } else if( layout == 'table' ) {
-              layout_return.push(
+              return (
                 <TableLayout
                   attributes={props.attributes}
                 />
               );
             } else if( layout == '2col' ) {
-              layout_return.push( 
+              return ( 
                 <Col2
                   attributes={props.attributes}
                 /> 
                 );
             } else if( layout == '3col' ) {
-              layout_return.push( 
+              return ( 
                 <Col3
                   attributes={props.attributes}
                 /> 
                 );
             } else if( layout == '4col' ) {
-              layout_return.push(
+              return (
                 <Col4
                   attributes={props.attributes}
                 />
               );
             } else {
-              layout_return.push(
+              return (
                 <DivLayout 
                     attributes={props.attributes}             
                   />
               )
             }
-
-            return layout_return;
           }
 
           function show_levels_selected() {
            if ( !levels.length ) {
             return null;
            }
-            return [
-            <span className="pmpro-member-profile-levels" style={{ fontSize: '12px' }}>{ __( 'Levels Selected: ',  'pmpro-member-directory' ) + levels }</span>,
-            <br/>
-            ]
+            return (
+             <>
+              <span className="pmpro-member-profile-levels" style={{ fontSize: '12px' }}>{ __( 'Levels Selected: ',  'pmpro-member-directory' ) + levels }</span>
+              <br/>
+             </>
+            )
           }
 
           return [
-            isSelected && <InspectorControls>
+            isSelected && <InspectorControls key="controls">
               
               <PanelBody
                 title={ __('Display Options', 'pmpro-member-directory' ) }
               >
                 <SelectControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom
                   multiple
                   label={ __( 'Select levels', 'pmpro-member-directory' ) }
                   help={ __('List of level IDs that allow profiles. Default: All', 'pmpro-member-directory') }
@@ -188,7 +190,9 @@ export default registerBlockType(
                   options={ all_levels }
                 />
 
-                <SelectControl 
+                <SelectControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label="Layout"
                   value={ layout }
                   onChange={ layout => { setAttributes( { layout } ) } }
@@ -201,44 +205,52 @@ export default registerBlockType(
                   ]}
                 />
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label='Show Search'
                   checked={ show_search }
                   onChange={ show_search => { setAttributes( { show_search } ) } }
                 />
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label="Show Avatar"
                   checked={ show_avatar }
                   onChange={ show_avatar => { setAttributes( { show_avatar } ) } }
                 />
              
-                <TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label="Avatar Size"
                   value={ avatar_size }
                   className={ !show_avatar ? "hidden" : "" }
                   onChange={ avatar_size => { setAttributes( { avatar_size } ) } }
                 />
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label='Show Level'
                   checked={ show_level }
                   onChange={ show_level => { setAttributes( { show_level } ) } }
                 />
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label='Show Email Address'
                   checked={ show_email }
                   onChange={ show_email => { setAttributes( { show_email } ) } }
                 />
                 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label='Show Start Date'
                   checked={ show_startdate }
                   onChange={ show_startdate => { setAttributes( { show_startdate } ) } }
                 />
 
-                <CheckboxControl 
+                <CheckboxControl
+                  __nextHasNoMarginBottom 
                   label="Show Link"
                   checked={ link }
                   onChange={ link => { setAttributes( { link } ) } }
@@ -247,40 +259,51 @@ export default registerBlockType(
 
 			  <PanelBody title={ __( 'Map Options', 'pmpro-member-directory' ) } >
 				<CheckboxControl
+				  __nextHasNoMarginBottom
 				  label={ __( 'Show Map', 'pmpro-member-directory' ) }
 				  checked={ show_map }
 				  onChange={ show_map => { setAttributes( { show_map } ) } }
 				/>
 
-				<TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label={ __( 'Map Zoom', 'pmpro-member-directory' ) }
                   value={ map_zoom }
                   className={ !show_map ? "hidden" : "" }
                   onChange={ map_zoom => { setAttributes( { map_zoom } ) } }
                 />
 
-				<TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label={ __( 'Map Height', 'pmpro-member-directory' ) }
                   value={ map_height }
                   className={ !show_map ? "hidden" : "" }
                   onChange={ map_height => { setAttributes( { map_height } ) } }
                 />
 
-				<TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom
                   label={ __( 'Map Width', 'pmpro-member-directory' ) }
                   value={ map_width }
                   className={ !show_map ? "hidden" : "" }
                   onChange={ map_width => { setAttributes( { map_width } ) } }
                 />
 
-				<TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label={ __( 'Max Zoom Level', 'pmpro-member-directory' ) }
                   value={ map_max_zoom }
                   className={ !show_map ? "hidden" : "" }
                   onChange={ map_max_zoom => { setAttributes( { map_max_zoom } ) } }
                 />
 
-				<TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label={ __( 'Infowindow Width', 'pmpro-member-directory' ) }
                   value={ map_infowindow_width }
                   className={ !show_map ? "hidden" : "" }
@@ -291,7 +314,8 @@ export default registerBlockType(
               <PanelBody
                 title={ __( 'Extra Fields', 'pmpro-member-directory' ) }
               >
-                <TextareaControl 
+                <TextareaControl
+                  __nextHasNoMarginBottom 
                   label="Fields"
                   value={ fields }
                   onChange={ fields => { setAttributes( { fields } ) } }
@@ -302,7 +326,9 @@ export default registerBlockType(
               <PanelBody
                 title={ __( 'Filtering Options', 'pmpro-member-directory' )  }
               >
-                <SelectControl 
+                <SelectControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label="Order By"
                   value={ order_by }
                   onChange={ order_by => { setAttributes( { order_by } ) } }
@@ -317,7 +343,9 @@ export default registerBlockType(
                   ]}
                 />
 
-                <SelectControl 
+                <SelectControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label="Order"
                   value={ order }
                   onChange={ order => { setAttributes( { order } ) } }
@@ -327,14 +355,16 @@ export default registerBlockType(
                   ]}
                 />
 
-                <TextControl 
+                <TextControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom 
                   label="Limit"
                   value={ limit }
                   onChange={ limit => { setAttributes( { limit } ) } }
                 />
               </PanelBody>
             </InspectorControls>,
-              <div className={ className } style={{ fontFamily: 'arial', fontSize: '14px' } }>
+              <div key="preview" className={ className } style={{ fontFamily: 'arial', fontSize: '14px' } }>
                 <div className={ !show_map ? "hidden" : "" }>
                   <img src={ require('../components/icons/google-maps-placeholder.png') } alt="Map Placeholder" />
                 </div>

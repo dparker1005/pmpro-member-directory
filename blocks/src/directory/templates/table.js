@@ -12,13 +12,15 @@ class TableLayout extends Component {
         return (
             <table className="pmpro-table" style={{ width: '100%', border: '1px solid black' }}>
                 <thead>
-                    <th className={ show_avatar ? '' : 'hidden'}>{ __( 'Avatar', 'pmpro-member-directory' ) }</th>
-                    <th>{ __( 'Member', 'pmpro-member-directory' ) }</th>
-                    <th className={ show_email ? '' : 'hidden' }>{ __( 'Email Address', 'pmpro-member-directory' ) }</th>
-                    <th className={ fields ? '' : 'hidden'}>{ __( 'More Information', 'pmpro-member-directory' ) }</th>
-                    <th className={ show_level ? '' : 'hidden' }>{ __( 'Level', 'pmpro-member-directory' ) }</th>
-                    <th className={ show_startdate ? '' : 'hidden' }>{ __( 'Start Date', 'pmpro-member-directory' ) }</th>
-                    <th className={ link ? '' : 'hidden' }>&nbsp;</th>
+                    <tr>
+                        <th className={ show_avatar ? '' : 'hidden'}>{ __( 'Avatar', 'pmpro-member-directory' ) }</th>
+                        <th>{ __( 'Member', 'pmpro-member-directory' ) }</th>
+                        <th className={ show_email ? '' : 'hidden' }>{ __( 'Email Address', 'pmpro-member-directory' ) }</th>
+                        <th className={ fields ? '' : 'hidden'}>{ __( 'More Information', 'pmpro-member-directory' ) }</th>
+                        <th className={ show_level ? '' : 'hidden' }>{ __( 'Level', 'pmpro-member-directory' ) }</th>
+                        <th className={ show_startdate ? '' : 'hidden' }>{ __( 'Start Date', 'pmpro-member-directory' ) }</th>
+                        <th className={ link ? '' : 'hidden' }>&nbsp;</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>

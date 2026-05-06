@@ -38,7 +38,7 @@ config.plugins.push(
 	new CopyPlugin({
 		patterns: [
 			{
-				from: path.resolve(process.cwd(), "blocks", "src", "**", "*.php"),
+				from: "**/*.php",
 				to: path.resolve(process.cwd(), "blocks", "dist"),
 				context: path.resolve(process.cwd(), "blocks", "src")
 			}

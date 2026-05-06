@@ -13,14 +13,14 @@ function ShowExtraFields( { fields, type } ) {
         
             if ( type === 'profile' ) {
                 custom_fields.push(
-                    <div className='pmpro-member-profile-wrapper'>
+                    <div key={index} className='pmpro-member-profile-wrapper'>
                     <span className='pmpro-member-profile-subheading'>{field_data[0]}</span><br/>
                     <span className='pmpro-member-profile-content'>{field_data[1]}</span>
                     </div>
                 );
             } else {
                 custom_fields.push(
-                    <div className='pmpro-member-profile-wrapper'>
+                    <div key={index} className='pmpro-member-profile-wrapper'>
                     <span className='pmpro-member-profile-subheading'>{field_data[0]}: </span><span className='pmpro-member-profile-content'>{field_data[1]}</span>
                     </div>
                 );
