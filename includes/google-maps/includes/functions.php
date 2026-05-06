@@ -165,7 +165,7 @@ function pmpromd_show_google_map( $attributes, $members ) {
 	/**
 	 * Allow marker clustering to be enabled which clusters 2 or more markers together at specific zoom levels.
 	 * 
-	 * @since TBD
+	 * @since 2.2
 	 * 
 	 * @param bool $show_cluster Whether to show marker clustering on the map. Defaults to true.
 	 */

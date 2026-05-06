@@ -3,7 +3,7 @@ Contributors: strangerstudios
 Tags: pmpro, paid memberships pro, members, directory
 Requires at least: 5.2
 Tested up to: 6.9
-Stable tag: 2.1.3
+Stable tag: 2.2
 
 Add a robust Member Directory and Profiles to Your Membership Site - with attributes to customize the display.
 
@@ -72,6 +72,13 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= 2.2 - 2026-05-06 =
+* ENHANCEMENT: Added marker clustering functionality for Google Maps. Markers are grouped into clusters at lower zoom levels and can be toggled via the new `pmpromd_map_cluster_markers` filter. #218 (@andrewlimaza)
+* BUG FIX: Fixed member start/end date calculations when some membership levels do not have an expiration date. #224 (@kimcoleman)
+* BUG FIX: The `show_map` attribute on the `[pmpro_member_profile]` shortcode now correctly accepts string values like `"false"`. #227 (@JarrydLong)
+* BUG FIX: Resolved console warnings and errors in the Member Directory and Member Profile blocks, fixed a `webpack.config.js` build error, and updated block components to follow current WordPress component patterns. #222 (@dwanjuki)
+* REFACTOR: Removed use of the deprecated `SQL_CALC_FOUND_ROWS` SELECT modifier. The total row count is now derived from the directory query without it. #225 (@dparker1005)
+
 = 2.1.3 - 2025-12-18 =
 * ENHANCEMENT: Now showing an error message after saving a Google Maps API key if the key is invalid. #213 (@JarrydLong)
 * ENHANCEMENT: Now showing an error message when geocoding an address fails on the Edit Member page. #214 (@andrewlimaza)
