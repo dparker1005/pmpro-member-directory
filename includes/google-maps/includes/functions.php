@@ -122,12 +122,7 @@ function pmpromd_show_google_map( $attributes, $members ) {
 	$query_params = array_map( 'sanitize_text_field', $query_params );
 
 	// Build the Google Maps API URL. The API is loaded asynchronously and immediately invokes the
-	// `pmpromd_init_map` callback once it loads, so that callback (and the MarkerClusterer library it
-	// may use) must already be defined when the API runs. We therefore register/enqueue map.js (and the
-	// cluster script) BEFORE the API below, and load map.js as a normal blocking script so it executes
-	// first. map.js does not depend on the Maps API because it only uses `google.maps.*` at call time,
-	// inside the callback. Loading the API before map.js was the cause of intermittent
-	// "pmpromd_init_map is not a function" errors on fast/cached Maps API loads.
+	//  `pmpromd_init_map` callback once it loads, so that callback (and the MarkerClusterer library it may use) must already be defined when the API runs.
 	$maps_api_url = add_query_arg( $query_params, 'https://maps.googleapis.com/maps/api/js' );
 	wp_register_script( 'pmpromd-google-maps-javascript', plugin_dir_url( dirname( __FILE__ ) ) . 'js/map.js', array( 'jquery' ), PMPRO_MEMBER_DIRECTORY_VERSION ); // This changes to `map.js`
 		
@@ -180,8 +175,7 @@ function pmpromd_show_google_map( $attributes, $members ) {
 	if ( $enable_marker_clustering ) {
 		$pmpromd_map_attributes['plugin_url'] = plugin_dir_url( dirname( __FILE__ ) );
 		$pmpromd_map_attributes['show_cluster'] = true;
-		// Load the clustering library as a normal blocking script (no dependency on the async Maps API)
-		// so the global MarkerClusterer is defined before the API invokes the callback that uses it.
+
 		wp_enqueue_script( 'pmpromd-google-maps-cluster', plugin_dir_url( dirname( __FILE__ ) ) . 'js/marker-cluster.min.js', array(), PMPRO_MEMBER_DIRECTORY_VERSION );
 	} else {
 		$pmpromd_map_attributes['show_cluster'] = false;
@@ -190,9 +184,7 @@ function pmpromd_show_google_map( $attributes, $members ) {
 	wp_localize_script( 'pmpromd-google-maps-javascript', 'pmpromd_vars', $pmpromd_map_attributes );
 	wp_enqueue_script( 'pmpromd-google-maps-javascript' );
 
-	// Enqueue the Google Maps API last so its <script> tag is printed after map.js and the cluster
-	// library. The API is loaded asynchronously; by the time its async callback fires, the scripts
-	// above have already executed and defined the globals it relies on.
+	// Enqueue the Google Maps API last so its <script> tag is printed after map.js and the cluster library.
 	wp_enqueue_script( 'pmpromd-google-maps', $maps_api_url, array(), PMPRO_MEMBER_DIRECTORY_VERSION, array( 'strategy' => 'async' ) );
 
 	return "<div id='pmpromd_map' class='pmpromd_map pmpromd_map_id_" . esc_attr( $map_id ) . "' style='height: " . esc_attr( $map_height ) . "px; width: " . esc_attr( $map_width ) . "%;'>" . esc_html( $notice ) . "</div>";
