@@ -121,8 +121,10 @@ function pmpromd_show_google_map( $attributes, $members ) {
 	// Let's work through the query parameters and clean/sanitize them.
 	$query_params = array_map( 'sanitize_text_field', $query_params );
 
-	wp_enqueue_script( 'pmpromd-google-maps', add_query_arg( $query_params, 'https://maps.googleapis.com/maps/api/js' ), array(), PMPRO_MEMBER_DIRECTORY_VERSION, array( 'strategy'  => 'async' ) );
-	wp_register_script( 'pmpromd-google-maps-javascript', plugin_dir_url( dirname( __FILE__ ) ) . 'js/map.js', array( 'jquery', 'pmpromd-google-maps' ), PMPRO_MEMBER_DIRECTORY_VERSION ); // This changes to `map.js`
+	// Build the Google Maps API URL. The API is loaded asynchronously and immediately invokes the
+	//  `pmpromd_init_map` callback once it loads, so that callback (and the MarkerClusterer library it may use) must already be defined when the API runs.
+	$maps_api_url = add_query_arg( $query_params, 'https://maps.googleapis.com/maps/api/js' );
+	wp_register_script( 'pmpromd-google-maps-javascript', plugin_dir_url( dirname( __FILE__ ) ) . 'js/map.js', array( 'jquery' ), PMPRO_MEMBER_DIRECTORY_VERSION ); // This changes to `map.js`
 		
 	/**
 	 * @deprecated 2.1 - use `pmpromd_default_map_start` instead.
@@ -173,13 +175,17 @@ function pmpromd_show_google_map( $attributes, $members ) {
 	if ( $enable_marker_clustering ) {
 		$pmpromd_map_attributes['plugin_url'] = plugin_dir_url( dirname( __FILE__ ) );
 		$pmpromd_map_attributes['show_cluster'] = true;
-		wp_enqueue_script( 'pmpromd-google-maps-cluster', plugin_dir_url( dirname( __FILE__ ) ) . 'js/marker-cluster.min.js', array( 'pmpromd-google-maps' ), PMPRO_MEMBER_DIRECTORY_VERSION );
+
+		wp_enqueue_script( 'pmpromd-google-maps-cluster', plugin_dir_url( dirname( __FILE__ ) ) . 'js/marker-cluster.min.js', array(), PMPRO_MEMBER_DIRECTORY_VERSION );
 	} else {
 		$pmpromd_map_attributes['show_cluster'] = false;
 	}
 
 	wp_localize_script( 'pmpromd-google-maps-javascript', 'pmpromd_vars', $pmpromd_map_attributes );
 	wp_enqueue_script( 'pmpromd-google-maps-javascript' );
+
+	// Enqueue the Google Maps API last so its <script> tag is printed after map.js and the cluster library.
+	wp_enqueue_script( 'pmpromd-google-maps', $maps_api_url, array(), PMPRO_MEMBER_DIRECTORY_VERSION, array( 'strategy' => 'async' ) );
 
 	return "<div id='pmpromd_map' class='pmpromd_map pmpromd_map_id_" . esc_attr( $map_id ) . "' style='height: " . esc_attr( $map_height ) . "px; width: " . esc_attr( $map_width ) . "%;'>" . esc_html( $notice ) . "</div>";
 }
