@@ -2,8 +2,8 @@
 Contributors: strangerstudios
 Tags: pmpro, paid memberships pro, members, directory
 Requires at least: 5.2
-Tested up to: 6.9
-Stable tag: 2.2
+Tested up to: 7.0
+Stable tag: 2.3
 
 Add a robust Member Directory and Profiles to Your Membership Site - with attributes to customize the display.
 
@@ -72,6 +72,10 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= 2.3 - 2026-06-22 =
+* ENHANCEMENT: Implemented caching logic for displaying the directory to help improve overall performance. (@flintfromthebasement)
+* BUG FIX: Fixed an issue where the Google Map would sometimes not load correctly on the directory page. (@andrewlimaza)
+
 = 2.2 - 2026-05-06 =
 * ENHANCEMENT: Added marker clustering functionality for Google Maps. Markers are grouped into clusters at lower zoom levels and can be toggled via the new `pmpromd_map_cluster_markers` filter. #218 (@andrewlimaza)
 * BUG FIX: Fixed member start/end date calculations when some membership levels do not have an expiration date. #224 (@kimcoleman)
