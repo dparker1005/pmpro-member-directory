@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-06T11:48:26+00:00\n"
+"POT-Creation-Date: 2026-06-22T11:07:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pmpro-member-directory\n"
@@ -135,6 +135,7 @@ msgstr "Profils au sein de <em>%s</em>."
 #: templates/directory.php:152
 #: templates/directory.php:179
 #: templates/directory.php:195
+#: templates/directory.php:208
 msgid "Viewing All Profiles"
 msgstr "Tous les profils"
 
@@ -144,6 +145,7 @@ msgstr "Tous les profils"
 #: templates/directory.php:159
 #: templates/directory.php:186
 #: templates/directory.php:202
+#: templates/directory.php:215
 msgid "Showing 1 Result"
 msgstr "1 résultat trouvé."
 
@@ -154,6 +156,7 @@ msgstr "1 résultat trouvé."
 #: templates/directory.php:162
 #: templates/directory.php:189
 #: templates/directory.php:205
+#: templates/directory.php:218
 #, fuzzy,php-format
 msgid "Showing %1$s-%2$s of %3$s Results"
 msgstr "Liste de %s -%s des %s résultats"
@@ -171,6 +174,7 @@ msgstr "Liste de %s -%s des %s résultats"
 #: blocks/dist/directory/block.build.js:440
 #: templates/directory.php:249
 #: blocks/src/directory/templates/table.js:16
+#: templates/directory.php:262
 msgid "Avatar"
 msgstr "Avatar"
 
@@ -187,6 +191,7 @@ msgstr "Avatar"
 #: blocks/dist/directory/block.build.js:441
 #: templates/directory.php:251
 #: blocks/src/directory/templates/table.js:17
+#: templates/directory.php:264
 msgid "Member"
 msgstr "Membre"
 
@@ -220,6 +225,7 @@ msgstr "Membre"
 #: templates/profile.php:102
 #: blocks/src/directory/templates/table.js:18
 #: blocks/src/profile/block.js:292
+#: templates/directory.php:272
 msgid "Email Address"
 msgstr "Courriel"
 
@@ -269,6 +275,7 @@ msgstr "Plus de détails"
 #: templates/profile.php:106
 #: blocks/src/directory/templates/table.js:20
 #: blocks/src/profile/block.js:297
+#: templates/directory.php:276
 msgid "Level"
 msgstr "Niveau"
 
@@ -306,6 +313,7 @@ msgstr "Niveau"
 #: templates/profile.php:109
 #: blocks/src/directory/templates/table.js:21
 #: blocks/src/profile/block.js:302
+#: templates/directory.php:279
 msgid "Start Date"
 msgstr "Date de début"
 
@@ -350,6 +358,9 @@ msgstr "Date de début"
 #: blocks/src/directory/templates/table.js:42
 #: blocks/src/directory/templates/table.js:51
 #: blocks/src/directory/templates/table.js:60
+#: includes/google-maps/includes/functions.php:308
+#: templates/directory.php:396
+#: templates/directory.php:449
 msgid "View Profile"
 msgstr "Voir le profil"
 
@@ -385,6 +396,7 @@ msgstr "au sein de <em>%s</em>."
 #: templates/profile.php:239
 #: templates/directory.php:223
 #: templates/profile.php:240
+#: templates/directory.php:236
 msgid "View All Members"
 msgstr "Voir tous les membres"
 
@@ -816,12 +828,14 @@ msgstr ""
 #: pmpro-member-directory.php:242
 #: pmpro-member-directory.php:174
 #: pmpro-member-directory.php:172
+#: pmpro-member-directory.php:173
 msgid "Yes"
 msgstr ""
 
 #: pmpro-member-directory.php:244
 #: pmpro-member-directory.php:176
 #: pmpro-member-directory.php:174
+#: pmpro-member-directory.php:175
 msgid "No"
 msgstr ""
 
@@ -899,6 +913,7 @@ msgstr ""
 #: templates/directory.php:150
 #: templates/directory.php:177
 #: templates/directory.php:193
+#: templates/directory.php:206
 #, php-format
 msgid "Profiles Within %s."
 msgstr ""
@@ -907,6 +922,7 @@ msgstr ""
 #: templates/directory.php:175
 #: templates/directory.php:202
 #: templates/directory.php:218
+#: templates/directory.php:231
 #, php-format
 msgid "No matching profiles found within <em>%s</em>."
 msgstr ""
@@ -914,6 +930,7 @@ msgstr ""
 #: templates/directory.php:184
 #: templates/directory.php:211
 #: templates/directory.php:227
+#: templates/directory.php:240
 msgid "No matching profiles found."
 msgstr ""
 
@@ -941,6 +958,7 @@ msgstr ""
 #: templates/directory.php:428
 #: templates/directory.php:464
 #: templates/directory.php:480
+#: templates/directory.php:493
 msgid "Member Directory Pagination"
 msgstr ""
 
@@ -1087,6 +1105,7 @@ msgstr ""
 
 #: includes/google-maps/includes/functions.php:376
 #: includes/google-maps/includes/functions.php:392
+#: includes/google-maps/includes/functions.php:398
 #, php-format
 msgid "There was an error with the Google Maps API: %s"
 msgstr ""

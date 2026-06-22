@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-06T11:48:25+00:00\n"
+"POT-Creation-Date: 2026-06-22T11:07:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pmpro-member-directory\n"
@@ -154,9 +154,9 @@ msgstr ""
 msgid "This map could not be loaded. Please ensure that you have entered your Google Maps API Key and that there are no JavaScript errors on the page."
 msgstr ""
 
-#: includes/google-maps/includes/functions.php:302
-#: templates/directory.php:383
-#: templates/directory.php:436
+#: includes/google-maps/includes/functions.php:308
+#: templates/directory.php:396
+#: templates/directory.php:449
 #: blocks/src/directory/templates/table.js:33
 #: blocks/src/directory/templates/table.js:42
 #: blocks/src/directory/templates/table.js:51
@@ -164,7 +164,7 @@ msgstr ""
 msgid "View Profile"
 msgstr ""
 
-#: includes/google-maps/includes/functions.php:392
+#: includes/google-maps/includes/functions.php:398
 #, php-format
 msgid "There was an error with the Google Maps API: %s"
 msgstr ""
@@ -185,11 +185,11 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: pmpro-member-directory.php:172
+#: pmpro-member-directory.php:173
 msgid "Yes"
 msgstr ""
 
-#: pmpro-member-directory.php:174
+#: pmpro-member-directory.php:175
 msgid "No"
 msgstr ""
 
@@ -199,51 +199,51 @@ msgid "Admin Only Alert: You must activate Paid Memberships Pro to use the Membe
 msgstr ""
 
 #. translators: placeholder is for search string entered
-#: templates/directory.php:193
+#: templates/directory.php:206
 #, php-format
 msgid "Profiles Within %s."
 msgstr ""
 
-#: templates/directory.php:195
+#: templates/directory.php:208
 msgid "Viewing All Profiles"
 msgstr ""
 
-#: templates/directory.php:202
+#: templates/directory.php:215
 msgid "Showing 1 Result"
 msgstr ""
 
 #. translators: placeholders are for result numbers
-#: templates/directory.php:205
+#: templates/directory.php:218
 #, php-format
 msgid "Showing %1$s-%2$s of %3$s Results"
 msgstr ""
 
 #. translators: placeholder is for search string entered
-#: templates/directory.php:218
+#: templates/directory.php:231
 #, php-format
 msgid "No matching profiles found within <em>%s</em>."
 msgstr ""
 
-#: templates/directory.php:223
+#: templates/directory.php:236
 #: templates/profile.php:240
 msgid "View All Members"
 msgstr ""
 
-#: templates/directory.php:227
+#: templates/directory.php:240
 msgid "No matching profiles found."
 msgstr ""
 
-#: templates/directory.php:249
+#: templates/directory.php:262
 #: blocks/src/directory/templates/table.js:16
 msgid "Avatar"
 msgstr ""
 
-#: templates/directory.php:251
+#: templates/directory.php:264
 #: blocks/src/directory/templates/table.js:17
 msgid "Member"
 msgstr ""
 
-#: templates/directory.php:259
+#: templates/directory.php:272
 #: templates/profile.php:102
 #: blocks/dist/profile/block.build.js:1
 #: blocks/src/directory/templates/table.js:18
@@ -251,7 +251,7 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: templates/directory.php:263
+#: templates/directory.php:276
 #: templates/profile.php:106
 #: blocks/dist/profile/block.build.js:1
 #: blocks/src/directory/templates/table.js:20
@@ -259,7 +259,7 @@ msgstr ""
 msgid "Level"
 msgstr ""
 
-#: templates/directory.php:266
+#: templates/directory.php:279
 #: templates/profile.php:109
 #: blocks/dist/profile/block.build.js:1
 #: blocks/src/directory/templates/table.js:21
@@ -267,7 +267,7 @@ msgstr ""
 msgid "Start Date"
 msgstr ""
 
-#: templates/directory.php:480
+#: templates/directory.php:493
 msgid "Member Directory Pagination"
 msgstr ""
 
