@@ -26,6 +26,7 @@ file_exists( $custom_profile_file ) ? require_once( $custom_profile_file ) : req
 // Includes
 require_once( PMPRO_MEMBER_DIRECTORY_DIR . '/blocks/blocks.php');
 require_once( PMPRO_MEMBER_DIRECTORY_DIR . '/includes/admin.php' );
+require_once( PMPRO_MEMBER_DIRECTORY_DIR . '/includes/cache.php' );
 require_once( PMPRO_MEMBER_DIRECTORY_DIR . '/includes/deprecated.php' );
 require_once( PMPRO_MEMBER_DIRECTORY_DIR . '/includes/functions.php' );
 require_once( PMPRO_MEMBER_DIRECTORY_DIR . '/includes/search.php' );

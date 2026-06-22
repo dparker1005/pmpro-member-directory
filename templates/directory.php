@@ -153,24 +153,37 @@ $sqlQuery = $sql_parts['SELECT'] . $sql_parts['JOIN'] . $sql_parts['WHERE'] . $s
 // Final filter on full SQL string
 $sqlQuery = apply_filters( 'pmpro_member_directory_sql', $sqlQuery, $levels, $s, $pn, $limit, $start, $end, $order_by, $order );
 
-	$theusers = $wpdb->get_results($sqlQuery);
+	// Check the query cache before hitting the database. Cache is keyed by the
+	// final SQL string, so distinct shortcode args / search / pagination /
+	// custom-filter combinations get distinct cache entries.
+	$cached = function_exists( 'pmpromd_get_cached_results' ) ? pmpromd_get_cached_results( $sqlQuery ) : false;
+	if ( is_array( $cached ) && isset( $cached['users'], $cached['totalrows'] ) ) {
+		$theusers  = $cached['users'];
+		$totalrows = (int) $cached['totalrows'];
+	} else {
+		$theusers = $wpdb->get_results($sqlQuery);
 
-	// Build the count query.
-	// Replace SELECT list with COUNT(DISTINCT u.ID).
-	$count_sql = preg_replace(
-		'/^\s*SELECT\s+[\s\S]*?\s+FROM\s+/i',
-		'SELECT COUNT( DISTINCT u.ID ) FROM ',
-		$sqlQuery,
-		1
-	);
+		// Build the count query.
+		// Replace SELECT list with COUNT(DISTINCT u.ID).
+		$count_sql = preg_replace(
+			'/^\s*SELECT\s+[\s\S]*?\s+FROM\s+/i',
+			'SELECT COUNT( DISTINCT u.ID ) FROM ',
+			$sqlQuery,
+			1
+		);
 
-	// Remove everything from GROUP BY onward (GROUP, ORDER, LIMIT, etc.).
-	$count_sql = preg_replace(
-		'/\s+GROUP\s+BY\s+[\s\S]*$/i',
-		'',
-		$count_sql
-	);
-	$totalrows = (int) $wpdb->get_var( $count_sql );
+		// Remove everything from GROUP BY onward (GROUP, ORDER, LIMIT, etc.).
+		$count_sql = preg_replace(
+			'/\s+GROUP\s+BY\s+[\s\S]*$/i',
+			'',
+			$count_sql
+		);
+		$totalrows = (int) $wpdb->get_var( $count_sql );
+
+		if ( function_exists( 'pmpromd_set_cached_results' ) ) {
+			pmpromd_set_cached_results( $sqlQuery, $theusers, $totalrows );
+		}
+	}
 
 	// Update end to match totalrows if total rows is small.
 	if ( $totalrows < $end )
