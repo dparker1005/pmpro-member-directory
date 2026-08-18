@@ -529,7 +529,7 @@ add_action( 'wp', 'pmpromd_profile_page_preheader', 1 );
  */
 function pmpromd_profile_user_is_visible( $pu ) {
 	// Must be a real user with an active membership level.
-	if ( empty( $pu ) || ! ( $pu instanceof WP_User ) || ! function_exists( 'pmpro_hasMembershipLevel' ) || ! pmpro_hasMembershipLevel( null, $pu->ID ) ) {
+	if ( empty( $pu ) || ! ( $pu instanceof WP_User ) || empty( $pu->ID ) || ! function_exists( 'pmpro_hasMembershipLevel' ) || ! pmpro_hasMembershipLevel( null, $pu->ID ) ) {
 		return false;
 	}
 

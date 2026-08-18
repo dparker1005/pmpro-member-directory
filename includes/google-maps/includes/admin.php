@@ -45,8 +45,11 @@ function pmpromd_test_maps_api() {
 
 	// Only load this function if the PMPro Advanced Settings page is being loaded and nonce passes.
 	$is_settings_page = ! empty( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pmpro-advancedsettings';
+	if ( ! $is_settings_page ) {
+		return;
+	}
 	$nonce_valid =  ! empty( $_REQUEST['pmpro_advancedsettings_nonce'] ) && check_admin_referer( 'savesettings', 'pmpro_advancedsettings_nonce' );
-	if ( ! $is_settings_page || ! $nonce_valid ) {
+	if ( ! $nonce_valid ) {
 		return;
 	}
 
