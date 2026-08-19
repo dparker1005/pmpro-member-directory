@@ -58,6 +58,12 @@ function pmpromd_profile_shortcode( $atts, $content=null, $code="" ) {
 		return $member_not_found;
 	}
 
+	// Run the same visibility checks used by the profile page preheader,
+	// since this shortcode may be placed on other pages.
+	if ( ! pmpromd_profile_user_is_visible( $pu ) ) {
+		return esc_html__( 'This profile is not available.', 'pmpro-member-directory' );
+	}
+
 	// Did they use level instead of levels?
 	if ( empty( $levels ) && ! empty( $level ) ) {
 		$levels = $level;
