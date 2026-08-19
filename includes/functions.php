@@ -464,37 +464,10 @@ function pmpromd_profile_page_preheader() {
 		$redirect = home_url();
 	}
 
-	// Is this user hidden from directory?
-	if ( ! empty( $pu ) ) {
-		$pmpromd_hide_directory = get_user_meta( $pu->ID, 'pmpromd_hide_directory', true );
-	} else {
-		$pmpromd_hide_directory = false;
-	}
-
-	// If no profile user, membership level, or hidden, go to directory or home.
-	if ( empty( $pu ) || empty( $pu->ID ) || ! function_exists('pmpro_hasMembershipLevel') || ! pmpro_hasMembershipLevel( null, $pu->ID ) || $pmpromd_hide_directory == '1' ) {
+	// If the profile user should not be visible, go to directory or home.
+	if ( ! pmpromd_profile_user_is_visible( $pu ) ) {
 		wp_redirect( $redirect );
 		exit;
-	}
-
-	// Integrate with Approvals Add On.
-	if ( class_exists( 'PMPro_Approvals' ) ){
-		// Check that the user has a membership level that does not require approval
-		// or that the user has a membership level that does require approval and has been approved.
-		$user_levels = pmpro_getMembershipLevelsForUser( $pu->ID );
-		$approval_levels = PMPro_Approvals::getApprovalLevels();
-		$okay = false;
-		foreach ( $user_levels as $level ) {
-			if ( ! in_array( $level->id, $approval_levels ) || PMPro_Approvals::isApproved( $pu->ID, $level->id ) ) {
-				$okay = true;
-				break;
-			}
-		}
-
-		if ( ! $okay ) {
-			wp_redirect( $redirect );
-			exit;
-		}
 	}
 
 	/**
@@ -531,6 +504,11 @@ function pmpromd_profile_user_is_visible( $pu ) {
 	// Must be a real user with an active membership level.
 	if ( empty( $pu ) || ! ( $pu instanceof WP_User ) || empty( $pu->ID ) || ! function_exists( 'pmpro_hasMembershipLevel' ) || ! pmpro_hasMembershipLevel( null, $pu->ID ) ) {
 		return false;
+	}
+
+	// Members can always view their own profile, even if hidden from the directory or pending approval.
+	if ( get_current_user_id() === (int) $pu->ID ) {
+		return true;
 	}
 
 	// Is this user hidden from the directory?
