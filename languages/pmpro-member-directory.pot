@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Paid Memberships Pro - Member Directory Add On plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Paid Memberships Pro - Member Directory Add On 2.2\n"
+"Project-Id-Version: Paid Memberships Pro - Member Directory Add On 2.3.1\n"
 "Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
 "Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-22T11:07:35+00:00\n"
+"POT-Creation-Date: 2026-08-19T17:24:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pmpro-member-directory\n"
@@ -126,11 +126,11 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: includes/functions.php:660
+#: includes/functions.php:680
 msgid "The show_billing attribute is deprecated. We recommend collecting member addresses using the Mailing Address Add On or through User Fields."
 msgstr ""
 
-#: includes/functions.php:673
+#: includes/functions.php:693
 msgid "The show_phone attribute is deprecated. We recommend collecting member phone numbers through a User Field."
 msgstr ""
 
@@ -146,7 +146,7 @@ msgstr ""
 msgid "Google Maps API Key"
 msgstr ""
 
-#: includes/google-maps/includes/admin.php:126
+#: includes/google-maps/includes/admin.php:129
 msgid "Membership Maps API Key Status"
 msgstr ""
 
@@ -225,7 +225,7 @@ msgid "No matching profiles found within <em>%s</em>."
 msgstr ""
 
 #: templates/directory.php:236
-#: templates/profile.php:240
+#: templates/profile.php:246
 msgid "View All Members"
 msgstr ""
 
@@ -244,7 +244,7 @@ msgid "Member"
 msgstr ""
 
 #: templates/directory.php:272
-#: templates/profile.php:102
+#: templates/profile.php:108
 #: blocks/dist/profile/block.build.js:1
 #: blocks/src/directory/templates/table.js:18
 #: blocks/src/profile/block.js:292
@@ -252,7 +252,7 @@ msgid "Email Address"
 msgstr ""
 
 #: templates/directory.php:276
-#: templates/profile.php:106
+#: templates/profile.php:112
 #: blocks/dist/profile/block.build.js:1
 #: blocks/src/directory/templates/table.js:20
 #: blocks/src/profile/block.js:297
@@ -260,7 +260,7 @@ msgid "Level"
 msgstr ""
 
 #: templates/directory.php:279
-#: templates/profile.php:109
+#: templates/profile.php:115
 #: blocks/dist/profile/block.build.js:1
 #: blocks/src/directory/templates/table.js:21
 #: blocks/src/profile/block.js:302
@@ -283,25 +283,29 @@ msgstr ""
 msgid "Please contact the site administrator for assistance."
 msgstr ""
 
-#: templates/profile.php:99
+#: templates/profile.php:64
+msgid "This profile is not available."
+msgstr ""
+
+#: templates/profile.php:105
 #: blocks/dist/profile/block.build.js:1
 #: blocks/src/profile/block.js:287
 msgid "Biographical Info"
 msgstr ""
 
-#: templates/profile.php:112
+#: templates/profile.php:118
 #: blocks/dist/profile/block.build.js:1
 #: blocks/src/profile/block.js:307
 msgid "Address"
 msgstr ""
 
-#: templates/profile.php:115
+#: templates/profile.php:121
 #: blocks/dist/profile/block.build.js:1
 #: blocks/src/profile/block.js:317
 msgid "Phone Number"
 msgstr ""
 
-#: templates/profile.php:252
+#: templates/profile.php:258
 msgid "Edit Profile"
 msgstr ""
 
