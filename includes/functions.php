@@ -495,7 +495,7 @@ add_action( 'wp', 'pmpromd_profile_page_preheader', 1 );
  * Used by both the profile page preheader and the profile shortcode/block,
  * since the shortcode can be placed on pages other than the assigned profile page.
  *
- * @since TBD
+ * @since 2.3.1
  *
  * @param WP_User $pu The profile user.
  * @return bool Whether the profile should be shown.

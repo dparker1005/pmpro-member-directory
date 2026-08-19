@@ -3,7 +3,7 @@ Contributors: strangerstudios
 Tags: pmpro, paid memberships pro, members, directory
 Requires at least: 5.2
 Tested up to: 7.0
-Stable tag: 2.3
+Stable tag: 2.3.1
 
 Add a robust Member Directory and Profiles to Your Membership Site - with attributes to customize the display.
 
@@ -72,6 +72,11 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= 2.3.1 - 2026-08-19 =
+* SECURITY: Fixed an issue where profiles for members who are hidden from the directory, do not have an active membership, or are pending approval could still be viewed when the profile shortcode or block was placed on a page other than the assigned profile page. #233 (@flintfromthebasement)
+* ENHANCEMENT: Members with an active membership can now view their own profile even if they are hidden from the directory or pending approval. #233 (@flintfromthebasement)
+* BUG FIX: Fixed the security check for testing the Google Maps API key so that the test only runs when saving the PMPro Advanced Settings page. #233 (@flintfromthebasement)
+
 = 2.3 - 2026-06-22 =
 * ENHANCEMENT: Implemented caching logic for displaying the directory to help improve overall performance. (@flintfromthebasement)
 * BUG FIX: Fixed an issue where the Google Map would sometimes not load correctly on the directory page. (@andrewlimaza)
